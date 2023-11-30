@@ -1,75 +1,127 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Euro losowanie</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        /* Add a falling animation to the table cells */
-        @keyframes falling {
-            0%   {transform: translateY(-100%); opacity: 0;}
-            100% {transform: translateY(0); opacity: 1;}
-        }
+html,body{
+    margin: 0px;
+}
+body{
+    background-color: rgb(34, 34, 34);
+    overflow: hidden;
+}
+.navbar{
+    background-color: black;
+    color: whitesmoke;
+    display: flex;
+    justify-content: center;
+    -webkit-box-shadow: 0px 28px 79px 34px rgba(0, 255, 203, 1);
+    -moz-box-shadow: 0px 28px 79px 34px rgba(0, 255, 203, 1);
+    box-shadow: 0px 10px 79px 14px rgba(0, 255, 203, 1);
+    margin-bottom: 55px;
+}
+.main{
+    text-align: center;
+}
+.group{
+    border: none;
+}
+table,td,th,tr{
+    font-weight: bold;
+    padding: 5px;
+    border: 3px solid black;
+    border-radius: 6px;
+    text-align: center;
+    min-width: 70px;
+    height: 70px;
+}
+#karta {
+    margin-bottom: 35px;
+    display: flex;
+    align-items: center;
+    background-color: whitesmoke;
+    width: fit-content;
+    border: 10px solid whitesmoke;
+    border-radius: 10px;
+}
 
-        td {
-            opacity: 0; /* Initially hide the cells */
-            animation: falling 2s ease-in-out forwards; /* Use the 'forwards' keyword to retain the final state of the animation */
-        }
-    </style>
-</head>
-<body>
-    <nav>
-        <h1>Euro 2024 Losowanie</h1>
-        <h2>Andrzej Knapik & Sebastian Mizera</h2>
-    </nav>
-    <main>
-        <div id="karta">
-            <table id="losowanieTable">
-                <!-- Table rows will be added here by JavaScript -->
-            </table>
-        </div>
-    </main>
-    <div id="btnLosowanieDiv">
-        <button class='glowing-btn' onclick='losuj()'><span class='glowing-txt'>L<span class='faulty-letter'>O</span>SUJ</span></button>
-    </div>
-    <script>
-        let koszyk1 = ["Niemcy", "Portugalia", "Francja", "Hiszpania", "Belgia", "Anglia"];
-        let koszyk2 = ["Węgry", "Turcja", "Rumunia", "Dania", "Albania", "Austria"];
-        let koszyk3 = ["Holandia", "Szkocja", "Chorwacja", "Słowenia", "Słowacja", "Czechy"];
-        let koszyk4 = ["Włochy", "Serbia", "Szwajcaria", "Ścieżka A", "Ścieżka B","Ścieżka C"];
 
-        function losowanie(koszyk) {
-            let index = Math.floor(Math.random() * koszyk.length);
-            let druzyna = koszyk[index];
-            koszyk.splice(index, 1);
-            return druzyna;
-        }
 
-        let grupy = {A: [], B: [], C: [], D: [], E: [], F: []};
-
-        function losuj() {
-            for (let grupa in grupy) {
-                grupy[grupa].push(losowanie(koszyk1));
-                grupy[grupa].push(losowanie(koszyk2));
-                grupy[grupa].push(losowanie(koszyk3));
-                grupy[grupa].push(losowanie(koszyk4));
-            }
-
-            let table = document.getElementById('losowanieTable');
-            for (let grupa in grupy) {
-                let row = table.insertRow();
-                let cell1 = row.insertCell();
-                cell1.class = 'group';
-                cell1.innerHTML = 'Grupa ' + grupa;
-                for (let i = 0; i < grupy[grupa].length; i++) {
-                    let cell = row.insertCell();
-                    cell.innerHTML = grupy[grupa][i];
-                    // Add a delay to the animation for each cell
-                    cell.style.animationDelay = (i * 0.5) + 's';
-                }
-            }
-        }
-    </script>
-</body>
-</html>
+/* stylizacja przycisku */
+.wrap {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .button {
+    min-width: 300px;
+    min-height: 60px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 22px;
+    text-transform: uppercase;
+    letter-spacing: 1.3px;
+    font-weight: 700;
+    color: #313133;
+    background: #4FD1C5;
+  background: linear-gradient(90deg, rgba(129,230,217,1) 0%, rgba(79,209,197,1) 100%);
+    border: none;
+    border-radius: 1000px;
+    box-shadow: 12px 12px 24px rgba(79,209,197,.64);
+    transition: all 0.3s ease-in-out 0s;
+    cursor: pointer;
+    outline: none;
+    position: relative;
+    padding: 10px;
+    }
+  
+  button::before {
+  content: '';
+    border-radius: 1000px;
+    min-width: calc(300px + 12px);
+    min-height: calc(60px + 12px);
+    border: 6px solid #00FFCB;
+    box-shadow: 0 0 60px rgba(0,255,203,.64);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: all .3s ease-in-out 0s;
+  }
+  
+  .button:hover, .button:focus {
+    color: #313133;
+    transform: translateY(-6px);
+  }
+  
+  button:hover::before, button:focus::before {
+    opacity: 1;
+  }
+  
+  button::after {
+    content: '';
+    width: 30px; height: 30px;
+    border-radius: 100%;
+    border: 6px solid #00FFCB;
+    position: absolute;
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: ring 1.5s infinite;
+  }
+  
+  button:hover::after, button:focus::after {
+    animation: none;
+    display: none;
+  }
+  
+  @keyframes ring {
+    0% {
+      width: 30px;
+      height: 30px;
+      opacity: 1;
+    }
+    100% {
+      width: 300px;
+      height: 300px;
+      opacity: 0;
+    }
+  }
