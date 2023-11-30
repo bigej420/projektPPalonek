@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Euro losowanie</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <h1>Euro 2024 Losowanie</h1>
+    </nav>
+    <main>
+        <div id="karta">
+            <table>
+                
+                <tr>
+                    <td class="group">Grupa A: </td>
+                    <td>Niemcy</td>
+                    <td>Portugalia</td>
+                    <td>Francja</td>
+                    <td>Hiszpania</td>
+                    <td>Belgia</td>
+                    <td>Anglia</td>
+                    
+                </tr>
+                <tr>
+                    <td class="group">Grupa B: </td>
+                    <td>Węgry</td>
+                    <td>Turcja</td>
+                    <td>Rumunia</td>
+                    <td>Dania</td>
+                    <td>Albania</td>
+                    <td>Austria</td>
+                    
+                </tr>
+                <tr>
+                    <td class="group">Grupa C: </td>
+                    <td>Holandia</td>
+                    <td>Szkocja</td>
+                    <td>Chorwacja</td>
+                    <td>Słowenia</td>
+                    <td>Słowacja</td>
+                    <td>Czechy</td>
+                   
+                </tr>
+                <tr>
+                    <td class="group">Grupa D: </td>
+                    <td>Włochy</td>
+                    <td>Serbia</td>
+                    <td>Szwajcaria</td>
+                    <td>Ścieżka A</td>
+                    <td>Ścieżka B</td>
+                    <td>Ścieżka C</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+    <div id="btnLosowanieDiv">
+        <button class='glowing-btn'><span class='glowing-txt'>L<span class='faulty-letter'>O</span>SUJ</span></button>
+    </div>
+    <script>
+        let koszyk1 = ["Niemcy", "Portugalia", "Francja", "Hiszpania", "Belgia", "Anglia"];
+        let koszyk2 = ["Węgry", "Turcja", "Rumunia", "Dania", "Albania", "Austria"];
+        let koszyk3 = ["Holandia", "Szkocja", "Chorwacja", "Słowenia", "Słowacja", "Czechy"];
+        let koszyk4 = ["Włochy", "Serbia", "Szwajcaria", "Ścieżka A", "Ścieżka B","Ścieżka C"];
+
+        function losowanie(koszyk) {
+        let index = Math.floor(Math.random() * koszyk.length);
+        let druzyna = koszyk[index];
+        koszyk.splice(index, 1);
+        return druzyna;
+        }
+
+        let grupy = {A: [], B: [], C: [], D: [], E: [], F: []};
+
+        for (let grupa in grupy) {
+            grupy[grupa].push(losowanie(koszyk1));
+            grupy[grupa].push(losowanie(koszyk2));
+            grupy[grupa].push(losowanie(koszyk3));
+            grupy[grupa].push(losowanie(koszyk4));
+        }
+
+        console.log(grupy);
+
+
+    </script>
+</body>
+</html>
