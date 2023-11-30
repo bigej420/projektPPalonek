@@ -5,6 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Euro losowanie</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        @keyframes fallAnimation {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fireworksAnimation {
+            0% {
+                transform: translateY(0) rotate(0);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(-200px) rotate(360deg);
+                opacity: 1;
+            }
+        }
+
+        .falling {
+            animation: fallAnimation 0.5s ease forwards;
+        }
+
+        .firework {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: #f00;
+            border-radius: 50%;
+            animation: fireworksAnimation 1s ease-out infinite;
+        }
+
+        #fireworksLeft {
+            left: 10px;
+        }
+
+        #fireworksRight {
+            right: 10px;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar">
@@ -12,80 +56,116 @@
     </nav>
     <main>
         <div id="karta">
-            <table>
-                
+            <table id="grupyTable">
                 <tr>
                     <td class="group">Grupa A: </td>
-                    <td>Niemcy</td>
-                    <td>Portugalia</td>
-                    <td>Francja</td>
-                    <td>Hiszpania</td>
-                    <td>Belgia</td>
-                    <td>Anglia</td>
-                    
+                    <td id="grupaA1"></td>
+                    <td id="grupaA2"></td>
+                    <td id="grupaA3"></td>
+                    <td id="grupaA4"></td>
                 </tr>
                 <tr>
                     <td class="group">Grupa B: </td>
-                    <td>Węgry</td>
-                    <td>Turcja</td>
-                    <td>Rumunia</td>
-                    <td>Dania</td>
-                    <td>Albania</td>
-                    <td>Austria</td>
-                    
+                    <td id="grupaB1"></td>
+                    <td id="grupaB2"></td>
+                    <td id="grupaB3"></td>
+                    <td id="grupaB4"></td>
                 </tr>
                 <tr>
                     <td class="group">Grupa C: </td>
-                    <td>Holandia</td>
-                    <td>Szkocja</td>
-                    <td>Chorwacja</td>
-                    <td>Słowenia</td>
-                    <td>Słowacja</td>
-                    <td>Czechy</td>
-                   
+                    <td id="grupaC1"></td>
+                    <td id="grupaC2"></td>
+                    <td id="grupaC3"></td>
+                    <td id="grupaC4"></td>
                 </tr>
                 <tr>
                     <td class="group">Grupa D: </td>
-                    <td>Włochy</td>
-                    <td>Serbia</td>
-                    <td>Szwajcaria</td>
-                    <td>Ścieżka A</td>
-                    <td>Ścieżka B</td>
-                    <td>Ścieżka C</td>
+                    <td id="grupaD1"></td>
+                    <td id="grupaD2"></td>
+                    <td id="grupaD3"></td>
+                    <td id="grupaD4"></td>
+                </tr>
+                <tr>
+                    <td class="group">Grupa E: </td>
+                    <td id="grupaE1"></td>
+                    <td id="grupaE2"></td>
+                    <td id="grupaE3"></td>
+                    <td id="grupaE4"></td>
+                </tr>
+                <tr>
+                    <td class="group">Grupa F: </td>
+                    <td id="grupaF1"></td>
+                    <td id="grupaF2"></td>
+                    <td id="grupaF3"></td>
+                    <td id="grupaF4"></td>
                 </tr>
             </table>
         </div>
+        <!-- Fireworks elements -->
+        <div id="fireworksLeft" class="firework"></div>
+        <div id="fireworksRight" class="firework"></div>
     </main>
     <div class="wrap">
         <div id="btnLosowanieDiv">
-            <button class='button'><span class='glowing-txt'>L<span class='faulty-letter'>O</span>SUJ</span></button>
+            <button class='glowing-btn' onclick="losujGrupy()"><span class='glowing-txt'>L<span class='faulty-letter'>O</span>SUJ</span></button>
         </div>
     </div>
     <script>
         let koszyk1 = ["Niemcy", "Portugalia", "Francja", "Hiszpania", "Belgia", "Anglia"];
         let koszyk2 = ["Węgry", "Turcja", "Rumunia", "Dania", "Albania", "Austria"];
         let koszyk3 = ["Holandia", "Szkocja", "Chorwacja", "Słowenia", "Słowacja", "Czechy"];
-        let koszyk4 = ["Włochy", "Serbia", "Szwajcaria", "Ścieżka A", "Ścieżka B","Ścieżka C"];
+        let koszyk4 = ["Włochy", "Serbia", "Szwajcaria", "Ścieżka A", "Ścieżka B", "Ścieżka C"];
 
         function losowanie(koszyk) {
-        let index = Math.floor(Math.random() * koszyk.length);
-        let druzyna = koszyk[index];
-        koszyk.splice(index, 1);
-        return druzyna;
+            let index = Math.floor(Math.random() * koszyk.length);
+            let druzyna = koszyk[index];
+            koszyk.splice(index, 1);
+            return druzyna;
         }
 
-        let grupy = {A: [], B: [], C: [], D: [], E: [], F: []};
+        function losujGrupy() {
+            let grupy = { A: [], B: [], C: [], D: [], E: [], F: [] };
 
-        for (let grupa in grupy) {
-            grupy[grupa].push(losowanie(koszyk1));
-            grupy[grupa].push(losowanie(koszyk2));
-            grupy[grupa].push(losowanie(koszyk3));
-            grupy[grupa].push(losowanie(koszyk4));
+            for (let grupa in grupy) {
+                grupy[grupa].push(losowanie(koszyk1));
+                grupy[grupa].push(losowanie(koszyk2));
+                grupy[grupa].push(losowanie(koszyk3));
+                grupy[grupa].push(losowanie(koszyk4));
+            }
+
+            for (let grupa in grupy) {
+                for (let i = 0; i < grupy[grupa].length; i++) {
+                    let cell = document.getElementById(`grupa${grupa}${i + 1}`);
+                    cell.textContent = grupy[grupa][i];
+                    cell.classList.add('falling'); 
+                }
+            }
+
+
+            document.getElementById('fireworksLeft').style.animation = 'fireworksAnimation 1s ease-out infinite';
+            document.getElementById('fireworksRight').style.animation = 'fireworksAnimation 1s ease-out infinite';
+
+            setTimeout(() => {
+                resetAnimations();
+                resetFireworks();
+            }, 500);
+
+            console.log(grupy);
         }
 
-        console.log(grupy);
+        function resetAnimations() {
 
+            let cells = document.querySelectorAll('td');
+            cells.forEach(cell => {
+                cell.classList.remove('falling');
+            });
+        }
 
+        function resetFireworks() {
+            // Reset fireworks animations
+            document.getElementById('fireworksLeft').style.animation = '';
+            document.getElementById('fireworksRight').style.animation = '';
+        }
     </script>
 </body>
 </html>
