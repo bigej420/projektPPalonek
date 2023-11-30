@@ -122,10 +122,12 @@
             koszyk.splice(index, 1);
             return druzyna;
         }
-
+        let int123 = 0;
         function losujGrupy() {
+            if (int123 % 2 !== 0) {
+                location.reload();
+            }else{
             let grupy = { A: [], B: [], C: [], D: [], E: [], F: [] };
-
             for (let grupa in grupy) {
                 grupy[grupa].push(losowanie(koszyk1));
                 grupy[grupa].push(losowanie(koszyk2));
@@ -151,6 +153,8 @@
             }, 500);
 
             console.log(grupy);
+            }
+            int123++;
         }
 
         function resetAnimations() {
